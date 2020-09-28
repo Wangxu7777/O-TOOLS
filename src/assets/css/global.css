@@ -1,0 +1,51 @@
+body,
+p,
+ul,
+ol,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,#app {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: "微软雅黑";
+}
+i{
+  font-style:normal;
+}
+a {
+  color: #fff;
+  text-decoration: none;
+}
+a:hover {
+  color: #0099FF;
+  text-decoration: none;
+}
+input,
+img,button {
+  padding: 0;
+  vertical-align: middle;
+  border: 0 none;
+}
+
+input,select,button{
+  -webkit-appearance:none;
+  appearance:none;
+}
+
+.clearfix::after {
+  content: "";
+  height: 0;
+  line-height: 0;
+  display: block;
+  clear: both;
+  visibility: hidden;
+}
+.clearfix {
+  zoom: 1;
+}
