@@ -2,14 +2,14 @@
 <template>
   <div>
     <router-view />
-    <van-tabbar route>
-      <van-tabbar-item replace to="/index" icon="user-o">
+    <van-tabbar route @change="onChange">
+      <van-tabbar-item replace to="/client" icon="user-o" name="客户">
         客户
       </van-tabbar-item>
-      <van-tabbar-item replace to="/index" icon="gem-o">
+      <van-tabbar-item replace to="" icon="gem-o" name="机会">
         机会
       </van-tabbar-item>
-      <van-tabbar-item replace to="/index">
+      <van-tabbar-item replace to="/index" name="首页">
         <img
           v-if="this.display"
           src="../assets/img/a03-13a.png"
@@ -18,10 +18,10 @@
         />
         <img v-else src="../assets/img/a03-13.png" alt="" class="shouye" />
       </van-tabbar-item>
-      <van-tabbar-item replace to="/index" icon="qr">
+      <van-tabbar-item replace to="" icon="qr" name="项目">
         项目
       </van-tabbar-item>
-      <van-tabbar-item replace to="/index" icon="comment-o">
+      <van-tabbar-item replace to="" icon="comment-o" name="交流">
         交流
       </van-tabbar-item>
     </van-tabbar>
@@ -35,18 +35,21 @@ export default {
   data() {
     //这里存放数据
     return {
-      display: true
+      display: false
     };
   },
   //方法集合
   methods: {
-    judgment() {
-      if (this.$route.path == "/index") {
-        this.display == false;
+    onChange(index) {
+      if (index == "首页") {
+        this.display = true;
+      } else {
+        this.display = false;
       }
     }
   },
-  created() {}
+  created() {},
+  mounted() {}
 };
 </script>
 <style lang="less" scoped>

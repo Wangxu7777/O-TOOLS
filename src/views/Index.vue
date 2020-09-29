@@ -6,7 +6,7 @@
     </div>
     <div class="content">
       <p>HI，热心市民</p>
-      <div class="cell clearfix">
+      <div class="cell clearfix" @click="kehuPush">
         <div class="left_box">
           <img src="../assets/img/a03-2.png" alt="" />
           <span>客户</span>
@@ -146,7 +146,11 @@ export default {
     };
   },
   //方法集合
-  methods: {},
+  methods: {
+    kehuPush() {
+      this.$router.push({ path: "/client" });
+    }
+  },
   created() {}
 };
 </script>
@@ -165,8 +169,10 @@ export default {
     }
   }
   .content {
-    height: 100%;
-    background: rgb(236, 236, 236);
+    background-color: #f7f8fa;
+    min-height: 100vh;
+    max-height: auto;
+
     border-radius: 50px 50px 0 0;
     padding: 0 15px;
     p {
@@ -176,7 +182,7 @@ export default {
       padding: 20px;
       background: #fff;
       border-radius: 30px;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       .left_box {
         float: left;
         img {
@@ -199,7 +205,9 @@ export default {
         }
       }
     }
-
+    .van-collapse {
+      padding-bottom: 20px;
+    }
     .yuanjiao {
       height: auto;
       padding-top: 20px;

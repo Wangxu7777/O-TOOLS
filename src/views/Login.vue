@@ -4,7 +4,7 @@
     <div class="login_box">
       <van-form @submit="onSubmit">
         <van-field
-          v-model="loginFrom.username"
+          v-model="loginFrom.account"
           name="用户名"
           label="用户名"
           placeholder="用户名/手机号"
@@ -36,15 +36,24 @@ export default {
     //这里存放数据
     return {
       loginFrom: {
-        username: "",
+        account: "",
         password: ""
       }
     };
   },
   //方法集合
   methods: {
-    onSubmit(values) {
-      console.log(values);
+    async onSubmit() {
+      const { data: dt } = await this.$http.post("/login", this.loginFrom);
+      if (dt.code !== 200) {
+        return this.$toast.fail({
+          message: dt.msg
+        });
+      }
+
+      // 在前端通过sessionStorage把服务器返回的token令牌存储好
+      window.sessionStorage.setItem("token", dt.data.token);
+
       this.$router.push({ name: "Index" });
     }
   },
