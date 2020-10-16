@@ -5,13 +5,15 @@
       <img src="../assets/img/a03-1.png" alt="" />
     </div>
     <div class="content">
-      <p>HI，热心市民</p>
+      <p>HI，{{ this.username }}</p>
       <div class="cell clearfix" @click="kehuPush">
         <div class="left_box">
           <img src="../assets/img/a03-2.png" alt="" />
           <span>客户</span>
         </div>
-        <div class="right_box"><i>今日更新五条数据</i><span></span></div>
+        <div class="right_box">
+          <!-- <i>今日更新五条数据</i><span></span> -->
+        </div>
       </div>
       <div class="cell clearfix">
         <div class="left_box">
@@ -142,7 +144,8 @@ export default {
   data() {
     //这里存放数据
     return {
-      activeNames: ["1"]
+      activeNames: ["1"],
+      username: ""
     };
   },
   //方法集合
@@ -151,7 +154,9 @@ export default {
       this.$router.push({ path: "/client" });
     }
   },
-  created() {}
+  created() {
+    this.username = window.sessionStorage.getItem("username");
+  }
 };
 </script>
 <style lang="less" scoped>

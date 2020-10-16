@@ -5,13 +5,37 @@
   >
     <van-nav-bar
       id="reset"
-      title="客户详情管理"
+      title="客户新建管理"
       left-text="返回"
-      right-text="新增条目"
       left-arrow
       @click-left="onClickLeft"
-      @click-right="onClickRight"
     />
+    <van-notice-bar
+      wrapable
+      :scrollable="false"
+      text="新建客户保存之后，可新增自定义条目内容"
+    />
+    <van-form @submit="onSubmit">
+      <van-field
+        v-model="clientForm.customname"
+        name="客户名称"
+        label="客户名称"
+        placeholder="客户名称"
+        :rules="[{ required: true, message: '请填写客户名称' }]"
+      />
+      <van-field
+        v-model="clientForm.address"
+        name="客户地址"
+        label="客户地址"
+        placeholder="客户地址"
+        :rules="[{ required: true, message: '请填写客户地址' }]"
+      />
+      <div style="margin: 16px;">
+        <van-button round block type="info" native-type="submit">
+          保存
+        </van-button>
+      </div>
+    </van-form>
   </div>
 </template>
 
@@ -21,10 +45,27 @@ export default {
   components: {},
   data() {
     //这里存放数据
-    return {};
+    return {
+      clientForm: {
+        customname: "",
+        address: ""
+      }
+    };
   },
   //方法集合
   methods: {
+    async onSubmit() {
+      this.clientForm.userid = window.sessionStorage.getItem("userid");
+      const { data: dt } = await this.$http.post("/customer", this.clientForm);
+      console.log(dt);
+      if (dt.code != 200) {
+        return this.$toast.fail({
+          message: dt.msg
+        });
+      }
+
+      this.$router.push({ path: "/clientEntry" });
+    },
     onClickLeft() {
       this.$router.go(-1);
     },

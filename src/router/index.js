@@ -6,6 +6,10 @@ import BottomNav from "../views/BottomNav.vue";
 import Client from "../views/Client.vue";
 import ClientDetails from "../views/ClientDetails.vue";
 import ClientDetailsManagement from "../views/ClientDetailsManagement.vue";
+import Communicate from "../views/Communicate.vue";
+import ClientEntry from "../views/ClientEntry.vue";
+import ClientModify from "../views/ClientModify.vue";
+import ClientNewCommunicate from "../views/ClientNewCommunicate.vue";
 
 Vue.use(VueRouter);
 
@@ -40,6 +44,26 @@ const routes = [
         path: "/clientDetailsManagement",
         name: "ClientDetailsManagement",
         component: ClientDetailsManagement
+      },
+      {
+        path: "/communicate",
+        name: "Communicate",
+        component: Communicate
+      },
+      {
+        path: "/clientEntry",
+        name: "ClientEntry",
+        component: ClientEntry
+      },
+      {
+        path: "/clientModify",
+        name: "ClientModify",
+        component: ClientModify
+      },
+      {
+        path: "/clientNewCommunicate",
+        name: "ClientNewCommunicate",
+        component: ClientNewCommunicate
       }
     ]
   }

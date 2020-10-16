@@ -44,7 +44,7 @@ export default {
   //方法集合
   methods: {
     async onSubmit() {
-      const { data: dt } = await this.$http.post("/login", this.loginFrom);
+      const { data: dt } = await this.$http.post("/loginM", this.loginFrom);
       if (dt.code !== 200) {
         return this.$toast.fail({
           message: dt.msg
@@ -52,7 +52,9 @@ export default {
       }
 
       // 在前端通过sessionStorage把服务器返回的token令牌存储好
-      window.sessionStorage.setItem("token", dt.data.token);
+      window.sessionStorage.setItem("token", dt.data[0].token);
+      window.sessionStorage.setItem("username", dt.data[1].name);
+      window.sessionStorage.setItem("userid", dt.data[1].id);
 
       this.$router.push({ name: "Index" });
     }
