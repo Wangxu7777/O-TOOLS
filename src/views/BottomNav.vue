@@ -49,7 +49,11 @@ export default {
     }
   },
   created() {},
-  mounted() {}
+  mounted() {
+    this.$router.afterEach(() => {
+      window.scrollTo(0, 0);
+    });
+  }
 };
 </script>
 <style lang="less" scoped>

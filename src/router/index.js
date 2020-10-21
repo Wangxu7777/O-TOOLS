@@ -10,6 +10,12 @@ import Communicate from "../views/Communicate.vue";
 import ClientEntry from "../views/ClientEntry.vue";
 import ClientModify from "../views/ClientModify.vue";
 import ClientNewCommunicate from "../views/ClientNewCommunicate.vue";
+import CommunicateDetails from "../views/CommunicateDetails.vue";
+import CommunicateEdit from "../views/CommunicateEdit.vue";
+import ClientAuthority from "../views/ClientAuthority.vue";
+import ClientAuthorityEdit from "../views/ClientAuthorityEdit.vue";
+import ClientAuthorityAddto from "../views/ClientAuthorityAddto.vue";
+import ClientMaintain from "../views/ClientMaintain.vue";
 
 Vue.use(VueRouter);
 
@@ -64,6 +70,36 @@ const routes = [
         path: "/clientNewCommunicate",
         name: "ClientNewCommunicate",
         component: ClientNewCommunicate
+      },
+      {
+        path: "/communicateDetails",
+        name: "CommunicateDetails",
+        component: CommunicateDetails
+      },
+      {
+        path: "/communicateEdit",
+        name: "CommunicateEdit",
+        component: CommunicateEdit
+      },
+      {
+        path: "/clientAuthority",
+        name: "ClientAuthority",
+        component: ClientAuthority
+      },
+      {
+        path: "/clientAuthorityEdit",
+        name: "ClientAuthorityEdit",
+        component: ClientAuthorityEdit
+      },
+      {
+        path: "/clientAuthorityAddto",
+        name: "ClientAuthorityAddto",
+        component: ClientAuthorityAddto
+      },
+      {
+        path: "/clientMaintain",
+        name: "ClientMaintain",
+        component: ClientMaintain
       }
     ]
   }

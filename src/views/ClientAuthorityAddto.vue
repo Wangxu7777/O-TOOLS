@@ -5,14 +5,16 @@
   >
     <van-nav-bar
       id="reset"
-      title="交流记录"
+      title="权限添加"
       left-text="返回"
-      right-text="新建"
       left-arrow
       @click-left="onClickLeft"
-      @click-right="onClickRight"
     />
-    <van-search v-model="value" placeholder="请输入搜索关键词" />
+    <van-search
+      v-model="searchValue"
+      shape="round"
+      placeholder="请输入搜索关键词"
+    />
     <van-list
       v-model="loading"
       :finished="finished"
@@ -22,18 +24,17 @@
       <van-cell
         v-for="(item, i) in list"
         :key="i"
-        @click="see(item.id)"
+        @click="see(item)"
         class="liebiao"
         center
         :title="item.name"
-        :label="item.content"
+        :label="item.deptName"
         size="large"
       >
         <div>
           <p>
-            <van-tag round type="primary">{{ item.date }}</van-tag>
+            {{ item.roleNames }}
           </p>
-          <p>{{ item.creater }}</p>
         </div>
       </van-cell>
     </van-list>
@@ -47,26 +48,43 @@ export default {
   data() {
     //这里存放数据
     return {
-      value: "",
+      searchValue: "",
+      list: [],
       loading: false,
       finished: false,
-      list: []
+      authFrom: {}
     };
   },
   //方法集合
   methods: {
-    see(id) {
-      this.$router.push({
-        path: "/communicateDetails",
-        query: {
-          id: id
-        }
-      });
+    see(e) {
+      this.$dialog
+        .confirm({
+          message: `是否确定选择` + e.name
+        })
+        .then(async () => {
+          this.authFrom.u_id = e.id;
+          let c_id = this.$route.query.id;
+          this.authFrom.c_id = Number(c_id);
+          this.authFrom.u_data = JSON.stringify(e);
+          const { data: dt } = await this.$http.post("/auth", this.authFrom);
+          console.log(dt);
+          if (dt.code != 200) {
+            return this.$toast.fail({
+              message: dt.msg
+            });
+          }
+          this.$router.push({
+            path: "/clientAuthorityEdit",
+            query: { id: c_id, a_id: dt.data }
+          });
+        })
+        .catch(() => {
+          // on cancel
+        });
     },
     async onLoad() {
-      let id = this.$route.query.id;
-
-      const { data: dt } = await this.$http.get(`/talk/customerid/${id}`);
+      const { data: dt } = await this.$http.post(`/user/findUser`);
       if (dt.code != 200) {
         return this.$toast.fail({
           message: dt.msg
@@ -82,10 +100,9 @@ export default {
     },
     onClickRight() {
       this.$router.push({
-        path: "/clientNewCommunicate",
+        path: "/CommunicateEdit",
         query: {
-          id: this.$route.query.id,
-          c_name: this.$route.query.c_name
+          id: this.$route.query.id
         }
       });
     }
@@ -106,8 +123,5 @@ export default {
 }
 #reset /deep/ .van-nav-bar__text {
   color: #fff !important;
-}
-.liebiao {
-  margin-top: 20px;
 }
 </style>

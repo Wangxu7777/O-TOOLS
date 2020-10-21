@@ -5,7 +5,7 @@
   >
     <van-nav-bar
       id="reset"
-      title="新建/编辑交流活动记录"
+      title="交流记录编辑"
       left-text="返回"
       left-arrow
       @click-left="onClickLeft"
@@ -171,20 +171,7 @@ export default {
   data() {
     //这里存放数据
     return {
-      communicate: {
-        name: "",
-        f_id: "",
-        p_id: "",
-        c_id: "",
-        date: "",
-        address: "",
-        persons: "",
-        content: "",
-        follow: "",
-        c_name: "",
-        p_name: "",
-        f_name: ""
-      },
+      communicate: {},
       minDate: new Date(2010, 0, 1),
       username: "",
       password: "",
@@ -291,7 +278,7 @@ export default {
       this.dateCalendar = false;
     },
     async onSubmit() {
-      const { data: dt } = await this.$http.post("/talk", this.communicate);
+      const { data: dt } = await this.$http.put("/talk", this.communicate);
       console.log(dt);
       if (dt.code !== 200) {
         return this.$toast.fail({
@@ -303,13 +290,16 @@ export default {
     onClickLeft() {
       this.$router.go(-1);
     },
-    communicateData() {
-      let c_id = this.$route.query.id;
-      let u_id = window.sessionStorage.getItem("userid");
-      this.communicate.creater = window.sessionStorage.getItem("username");
-      this.communicate.u_id = Number(u_id);
-      this.communicate.c_name = this.$route.query.c_name;
-      this.communicate.c_id = Number(c_id);
+    async communicateData() {
+      let id = this.$route.query.id;
+      const { data: dt } = await this.$http.get(`talk/${id}`);
+      if (dt.code != 200) {
+        return this.$toast.fail({
+          message: dt.msg
+        });
+      }
+
+      this.communicate = dt.data;
     }
   },
   created() {

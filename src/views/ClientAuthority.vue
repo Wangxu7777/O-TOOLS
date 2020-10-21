@@ -5,14 +5,13 @@
   >
     <van-nav-bar
       id="reset"
-      title="交流记录"
+      title="权限查看"
       left-text="返回"
-      right-text="新建"
+      right-text="添加"
       left-arrow
       @click-left="onClickLeft"
       @click-right="onClickRight"
     />
-    <van-search v-model="value" placeholder="请输入搜索关键词" />
     <van-list
       v-model="loading"
       :finished="finished"
@@ -25,15 +24,12 @@
         @click="see(item.id)"
         class="liebiao"
         center
-        :title="item.name"
-        :label="item.content"
+        :title="item.u_data.name"
+        :label="item.u_data.roleNames"
         size="large"
       >
         <div>
-          <p>
-            <van-tag round type="primary">{{ item.date }}</van-tag>
-          </p>
-          <p>{{ item.creater }}</p>
+          <p>{{ item.auth }}</p>
         </div>
       </van-cell>
     </van-list>
@@ -47,31 +43,41 @@ export default {
   data() {
     //这里存放数据
     return {
-      value: "",
+      list: [],
       loading: false,
-      finished: false,
-      list: []
+      finished: false
     };
   },
   //方法集合
   methods: {
     see(id) {
       this.$router.push({
-        path: "/communicateDetails",
+        path: "/clientAuthorityEdit",
         query: {
-          id: id
+          id: this.$route.query.id,
+          a_id: id
         }
       });
     },
     async onLoad() {
       let id = this.$route.query.id;
 
-      const { data: dt } = await this.$http.get(`/talk/customerid/${id}`);
+      const { data: dt } = await this.$http.get(`/auth/customer/${id}`);
       if (dt.code != 200) {
         return this.$toast.fail({
           message: dt.msg
         });
       }
+      dt.data.forEach(element => {
+        element.u_data = JSON.parse(element.u_data);
+        if (element.auth == 1) {
+          element.auth = "维护";
+        } else if (element.auth == 2) {
+          element.auth = "查看";
+        }
+      });
+      //   dt.data.u_data = JSON.parse(dt.data.u_data);
+
       this.list = dt.data;
       // 加载状态结束
       this.loading = false;
@@ -82,10 +88,9 @@ export default {
     },
     onClickRight() {
       this.$router.push({
-        path: "/clientNewCommunicate",
+        path: "/clientAuthorityAddto",
         query: {
-          id: this.$route.query.id,
-          c_name: this.$route.query.c_name
+          id: this.$route.query.id
         }
       });
     }
@@ -106,8 +111,5 @@ export default {
 }
 #reset /deep/ .van-nav-bar__text {
   color: #fff !important;
-}
-.liebiao {
-  margin-top: 20px;
 }
 </style>

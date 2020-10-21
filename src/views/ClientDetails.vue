@@ -57,10 +57,14 @@
         >
       </div>
       <div class="btn" style="margin-bottom:10px">
-        <van-button round block type="default"> 权限</van-button>
+        <van-button round block type="default" @click="quanxian">
+          权限</van-button
+        >
       </div>
       <div class="btn" style="margin-bottom:10px">
-        <van-button round block type="default"> 维护要求</van-button>
+        <van-button @click="weihu" round block type="default">
+          维护要求</van-button
+        >
       </div>
     </div>
   </div>
@@ -79,6 +83,22 @@ export default {
   },
   //方法集合
   methods: {
+    weihu() {
+      this.$router.push({
+        path: "/clientMaintain",
+        query: {
+          id: this.$route.query.id
+        }
+      });
+    },
+    quanxian() {
+      this.$router.push({
+        path: "/clientAuthority",
+        query: {
+          id: this.$route.query.id
+        }
+      });
+    },
     guanli() {
       this.$router.push({
         path: "/clientModify",
@@ -107,7 +127,8 @@ export default {
       this.$router.push({
         path: "/communicate",
         query: {
-          id: this.$route.query.id
+          id: this.$route.query.id,
+          c_name: this.clientForm.customname
         }
       });
     }
