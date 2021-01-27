@@ -291,6 +291,7 @@ export default {
       this.dateCalendar = false;
     },
     async onSubmit() {
+      console.log("talk", this.communicate);
       const { data: dt } = await this.$http.post("/talk", this.communicate);
       console.log(dt);
       if (dt.code !== 200) {

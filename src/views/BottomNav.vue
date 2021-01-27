@@ -6,7 +6,7 @@
       <van-tabbar-item replace to="/client" icon="user-o" name="客户">
         客户
       </van-tabbar-item>
-      <van-tabbar-item replace to="" icon="gem-o" name="机会">
+      <van-tabbar-item replace to="/chance" icon="gem-o" name="机会">
         机会
       </van-tabbar-item>
       <van-tabbar-item replace to="/index" name="首页">
@@ -18,10 +18,16 @@
         />
         <img v-else src="../assets/img/a03-13.png" alt="" class="shouye" />
       </van-tabbar-item>
-      <van-tabbar-item replace to="" icon="qr" name="项目">
+      <van-tabbar-item replace to="/project" icon="qr" name="项目">
         项目
       </van-tabbar-item>
-      <van-tabbar-item replace to="" icon="comment-o" name="交流">
+      <van-tabbar-item
+        :class="communicateActive ? 'van-tabbar-item--active' : ''"
+        replace
+        :to="communicate"
+        icon="comment-o"
+        name="交流"
+      >
         交流
       </van-tabbar-item>
     </van-tabbar>
@@ -35,8 +41,17 @@ export default {
   data() {
     //这里存放数据
     return {
-      display: false
+      display: false,
+      communicate: `/communicate?id=${window.sessionStorage.getItem("userid")}`
     };
+  },
+  computed: {
+    indexDisplay() {
+      return this.$store.state.indexDisplay;
+    },
+    communicateActive() {
+      return this.$store.state.talkActive;
+    }
   },
   //方法集合
   methods: {
@@ -46,13 +61,20 @@ export default {
       } else {
         this.display = false;
       }
+      console.log(index);
     }
   },
-  created() {},
+  created() {
+    console.log(this.$route.path);
+  },
   mounted() {
     this.$router.afterEach(() => {
       window.scrollTo(0, 0);
     });
+    this.display = this.indexDisplay;
+    // if (this.communicateActive) {
+
+    // }
   }
 };
 </script>

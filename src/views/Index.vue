@@ -15,33 +15,44 @@
           <!-- <i>今日更新五条数据</i><span></span> -->
         </div>
       </div>
-      <div class="cell clearfix">
+      <div class="cell clearfix" @click="chancePush">
         <div class="left_box">
           <img src="../assets/img/a03-3.png" alt="" />
           <span>机会</span>
         </div>
         <div class="right_box"></div>
       </div>
-      <div class="cell clearfix">
+      <div class="cell clearfix" @click="projectPush">
         <div class="left_box">
           <img src="../assets/img/a03-4.png" alt="" />
           <span>项目</span>
         </div>
         <div class="right_box"></div>
       </div>
-      <div class="cell clearfix">
+      <div class="cell clearfix" @click="talkPush">
         <div class="left_box">
           <img src="../assets/img/a03-5.png" alt="" />
           <span>交流</span>
         </div>
         <div class="right_box"></div>
       </div>
-      <div class="cell clearfix" style="margin-bottom:20px">
+      <div class="cell clearfix" @click="weekPush" style="margin-bottom:20px">
         <div class="left_box">
           <img src="../assets/img/a03-6.png" alt="" />
           <span>周报</span>
         </div>
-        <div class="right_box"><i>已经五年没写周报了</i><span></span></div>
+        <!-- <div class="right_box"><i>已经五年没写周报了</i><span></span></div> -->
+      </div>
+      <div class="cell clearfix" @click="myPush" style="margin-bottom:20px">
+        <div class="left_box">
+          <img
+            style="height:55.2px;width:55.2px"
+            src="../assets/img/a01-3.png"
+            alt=""
+          />
+          <span>我的</span>
+        </div>
+        <!-- <div class="right_box"><i>已经五年没写周报了</i><span></span></div> -->
       </div>
       <van-collapse v-model="activeNames" accordion>
         <div class="yuanjiao">
@@ -150,12 +161,38 @@ export default {
   },
   //方法集合
   methods: {
+    myPush() {
+      this.$router.push({ path: "/user" });
+    },
     kehuPush() {
       this.$router.push({ path: "/client" });
+    },
+    chancePush() {
+      this.$router.push({ path: "/chance" });
+    },
+    projectPush() {
+      this.$router.push({ path: "/project" });
+    },
+    talkPush() {
+      this.$router.push({
+        path: "/communicate",
+        query: {
+          id: window.sessionStorage.getItem("userid")
+        }
+      });
+    },
+    weekPush() {
+      this.$router.push({
+        path: "/week",
+        query: {
+          id: window.sessionStorage.getItem("userid")
+        }
+      });
     }
   },
   created() {
     this.username = window.sessionStorage.getItem("username");
+    this.$store.commit("SET_indexDisplay", true);
   }
 };
 </script>

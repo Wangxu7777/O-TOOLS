@@ -103,7 +103,7 @@ export default {
     },
     modify() {
       this.$router.push({
-        path: "/clientEntry",
+        path: "/ClientDetailsManagementEdit",
         query: {
           id: this.$route.query.id
         }

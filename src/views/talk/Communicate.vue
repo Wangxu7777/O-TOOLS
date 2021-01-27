@@ -66,7 +66,7 @@ export default {
     async onLoad() {
       let id = this.$route.query.id;
 
-      const { data: dt } = await this.$http.get(`/talk/customerid/${id}`);
+      const { data: dt } = await this.$http.get(`/talk/all/${id}`);
       if (dt.code != 200) {
         return this.$toast.fail({
           message: dt.msg
@@ -90,7 +90,12 @@ export default {
       });
     }
   },
-  created() {}
+  created() {
+    this.$store.commit("SET_talkActive", true);
+  },
+  beforeDestroy() {
+    this.$store.commit("SET_talkActive", false);
+  }
 };
 </script>
 <style lang="less" scoped>

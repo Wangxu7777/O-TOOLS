@@ -40,6 +40,7 @@ axios.interceptors.request.use(
 // 基准路径
 // axios.defaults.withCredentials = true;
 
-axios.defaults.baseURL = "http://192.168.11.28:8001";
+// axios.defaults.baseURL = "http://127.0.0.1:8001";
+axios.defaults.baseURL = "http://192.168.11.52:8001";
 // axios.defaults.baseURL = userIP;
 export default axios;

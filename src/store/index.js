@@ -5,9 +5,17 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    LOADING: false
+    LOADING: false,
+    indexDisplay: false,
+    talkActive: false
   },
   mutations: {
+    SET_talkActive(state, payload) {
+      state.talkActive = payload;
+    },
+    SET_indexDisplay(state, payload) {
+      state.indexDisplay = payload;
+    },
     showLoading(state) {
       state.LOADING = true;
     },

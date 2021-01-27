@@ -116,7 +116,7 @@ export default {
       }
     },
     fanhui() {
-      this.$router.push({ path: "/client" });
+      this.$router.push({ path: "/chance" });
     },
     toggle(index) {
       this.$refs.checkboxes[index].toggle();
@@ -146,7 +146,7 @@ export default {
         }
 
         this.$router.push({
-          path: "/clientModify",
+          path: "/chanceModify",
           query: {
             id: this.$route.query.id
           }
@@ -161,7 +161,7 @@ export default {
         }
 
         this.$router.push({
-          path: "/clientModify",
+          path: "/chanceModify",
           query: {
             id: this.$route.query.id
           }

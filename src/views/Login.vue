@@ -50,7 +50,7 @@ export default {
           message: dt.msg
         });
       }
-
+      console.log(dt.data[1]);
       // 在前端通过sessionStorage把服务器返回的token令牌存储好
       window.sessionStorage.setItem("token", dt.data[0].token);
       window.sessionStorage.setItem("username", dt.data[1].name);
